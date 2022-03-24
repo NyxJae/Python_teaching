@@ -61,6 +61,7 @@ if __name__ == '__main__':
             desktopOrg = DeskTopOrg()
             desktopOrg.Organization()
             print("---->你的文件已经整理完成。")
+            os.system("pause")
             a = input('---->请按回车键退出:')
             if a == '':
                 break
