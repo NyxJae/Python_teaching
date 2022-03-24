@@ -8,7 +8,7 @@ import shutil
 # 不同种类文件都有相应的后缀名来标志它的种类
 
 # 以后缀名来规定如何分类文件
-formats = {
+zhengLiGuiZe = {
     "音频": [".mp3"],
     "视频": [".mp4"],
     "图片": [".png", ".jpg"],
@@ -21,13 +21,18 @@ formats = {
 os.chdir(r"体验课/演示文件夹")
 
 
+# 一个一个来整理文件
 for wenJian in os.listdir():
-    ext = os.path.splitext(wenJian)[-1].lower()
+    # 记下当前文件的后缀名
+    houZhui = os.path.splitext(wenJian)[-1].lower()
+    # 将文件的后缀与我们定义的整理规则挨个对比
+    for wenJianZhongLei, houZhuis in zhengLiGuiZe.items():
 
-    for d, exts in formats.items():
-        if not os.path.isdir(d):
-            os.mkdir(d)
-        if ext in exts:
-            shutil.move(wenJian, "{0}/{1}".format(d, wenJian))
+        if not os.path.isdir(wenJianZhongLei):
+            os.mkdir(wenJianZhongLei)
+        # 看看这个文件属于那个种类
+        if houZhui in houZhuis:
+            # 将其放到对应的文件夹中
+            shutil.move(wenJian, "{0}/{1}".format(wenJianZhongLei, wenJian))
 
 print("整理完成")
