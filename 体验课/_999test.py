@@ -1,40 +1,68 @@
-# 站在前人的肩膀上,不重复造轮子
-# 大神们已经写好了一些工具库
-
-# 下面是两个可以操作文件的工具库
 import os
+import glob
 import shutil
 
-# 不同种类文件都有相应的后缀名来标志它的种类
 
-# 以后缀名来规定如何分类文件
-zhengLiGuiZe = {
-    "音频": [".mp3"],
-    "视频": [".mp4"],
-    "图片": [".png", ".jpg"],
-    "文档": [".txt", ".pdf", ".docx"],
-    "程序": [".exe"],
-    "压缩包": [".zip"],
-}
+class FileType():
+    def __init__(self):
+        self.filetype = {
+            "图片": [".jpeg", ".jpg", ".tiff", ".gif", ".bmp", ".png", ".bpg", "svg", ".heif", ".psd"],
+            "视频": [".avi", ".flv", ".wmv", ".mov", ".mp4", ".webm", ".vob", ".mng", ".qt", ".mpg", ".mpeg", ".3gp", ".mkv"],
+            "音频": [".aac", ".aa", ".aac", ".dvf", ".m4a", ".m4b", ".m4p", ".mp3", ".msv", ".ogg", ".oga", ".raw", ".vox", ".wav", ".wma"],
+            "文档": [".oxps", ".epub", ".pages", ".docx", ".doc", ".fdf", ".ods", ".odt", ".pwi", ".xsn", ".xps", ".dotx", ".docm", ".dox",
+".rvg", ".rtf", ".rtfd", ".wpd", ".xls", ".xlsx", ".ppt", ".pptx", ".csv", ".pdf", ".md",".xmind"],
+            "压缩文件": [".a", ".ar", ".cpio", ".iso", ".tar", ".gz", ".rz", ".7z", ".dmg", ".rar", ".xar", ".zip"],
+            "文本": [".txt", ".in", ".out", ".json","xml",".log"],
+            "程序脚本": [".py", ".html5", ".html", ".htm", ".xhtml", ".c", ".cpp", ".java", ".css",".sql"], 
+            "可执行程序": [".exe",".bat",".lnk"],
+            "字体文件": [".ttf", ".OTF", ".WOFF", ".EOT"]
+        }
 
-# 定位到脚本当前文件夹
-os.chdir(os.path.dirname(__file__))
-    
-
-# 一个一个来整理文件
-for wenJian in os.listdir():
-    # 记下当前文件的后缀名
-    houZhui = os.path.splitext(wenJian)[-1].lower()
-    # 将文件的后缀与我们定义的整理规则挨个对比,并建立未创建的文件夹
-    for wenJianZhongLei, houZhuis in zhengLiGuiZe.items():
-        # 如果已经有同名的文件夹,就不要建立
-        # 如果没有,才建立
-        if not os.path.isdir(wenJianZhongLei):
-            os.mkdir(wenJianZhongLei)
-        # 看看这个文件属于那个种类
-        if houZhui in houZhuis:
-            # 将其放到对应的文件夹中
-            shutil.move(wenJian, "{0}/{1}".format(wenJianZhongLei, wenJian))
+    def JudgeFile(self, pathname):
+        for name, type in self.filetype.items():
+            if pathname in type:
+                return name
+        return "无法判断类型文件"
 
 
-print("整理完成")
+class DeskTopOrg(object):
+    def __init__(self):
+        self.filetype = FileType()
+
+    def Organization(self):
+        filepath = input("请输入需要整理的文件夹路径： ")
+        paths = glob.glob(filepath + "/*.*")
+        print('paths-->',paths)
+        for path in paths:
+            try:
+                if not os.path.isdir(path):
+                    file = os.path.splitext(path)
+                    filename,type = file
+                    print('type-->',type)
+                    print("filename-->",filename)
+                    print('path-->',path)
+                    dir_path = os.path.dirname(path)
+                    print('dir_path-->',dir_path)
+                    savePath = dir_path + '/{}'.format(self.filetype.JudgeFile(type))
+                    print('savePath-->',savePath)
+                    if not os.path.exists(savePath):
+                        os.mkdir(savePath)
+                        shutil.move(path, savePath)
+                    else:
+                        shutil.move(path, savePath)
+            except FileNotFoundError:
+                pass
+        print("程序执行结束！")
+
+
+if __name__ == '__main__':
+    try:
+        while True:
+            desktopOrg = DeskTopOrg()
+            desktopOrg.Organization()
+            print("---->你的文件已经整理完成。")
+            a = input('---->请按回车键退出:')
+            if a == '':
+                break
+    except BaseException:
+        print("ERROE:路径错误或有重复的文档")
