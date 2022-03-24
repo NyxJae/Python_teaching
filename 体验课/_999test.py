@@ -2,7 +2,8 @@ import imp
 import os
 import shutil
 
-
+# 不同种类文件都有其后缀名
+# 以后缀名来分类文件
 formats = {
     "音频": [".mp3"],
     "视频": [".mp4"],
