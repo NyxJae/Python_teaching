@@ -18,26 +18,23 @@ zhengLiGuiZe = {
 }
 
 # 定位到要整理的文件夹 体验课/演示文件夹
-os.chdir(r"体验课/演示文件夹")
+
 
 # 按照我们的规则,一个一个来建立文件夹
-for wenJianZhongLei, houZhuis in zhengLiGuiZe.items():
+
     # 如果已经有同名的文件夹,就不要建立
 
     # 如果没有,才建立
-    if not os.path.isdir(wenJianZhongLei):
-        os.mkdir(wenJianZhongLei)
+    
 
 # 一个一个来整理文件
-for wenJian in os.listdir():
+
     # 记下当前文件的后缀名
-    houZhui = os.path.splitext(wenJian)[-1].lower()
+    
     # 将文件的后缀与我们定义的整理规则挨个对比
-    for wenJianZhongLei, houZhuis in zhengLiGuiZe.items():
+    
         # 看看这个文件属于那个种类
-        if houZhui in houZhuis:
+        
             # 将其放到对应的文件夹中
-            shutil.move(wenJian, "{0}/{1}".format(wenJianZhongLei, wenJian))
+            
 
-
-print("整理完成")
