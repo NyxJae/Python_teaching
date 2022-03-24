@@ -1,7 +1,7 @@
 # 此部分为体验课所用资源
 ## 各文件说明
 * 演示文件夹内存放各类文件,用于完成项目后测试 ***文件整理*** 效果  
-* _997experienceClass.py 为学生上课所用框架
+* [_997experienceClass.py](体验课/_997experienceClass.py) 为学生上课所用框架
 * _998experienceClass.py 为课堂项目成品
 * _999experienceClass.py 为项目延伸方向作品
 * 体验课.md 为体验课所用课件
