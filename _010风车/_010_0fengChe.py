@@ -7,9 +7,8 @@ t.bgcolor("lightBlue")
 t.color("gray")
 t.pensize(20)
 # 转向下
-t.right(90)
+t.left(90)
 t.forward(150)
-t.backward(150)
 # endregion
 
 # region 绘制4个粉色半圆扇叶
@@ -24,12 +23,13 @@ for i in range(4):
     # 转向定圆弧方向
     t.left(90)
     # 半圆弧,半径为
-    t.circle(100, 180)
+    t.circle(50, 180)
 t.end_fill()
 # endregion
 
 # 连接点
 t.dot(20)
+
 t.hideturtle()
 
 t.done()
