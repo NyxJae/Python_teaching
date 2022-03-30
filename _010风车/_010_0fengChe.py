@@ -4,9 +4,9 @@ import turtle as t
 t.bgcolor("lightBlue")
 
 # region 绘制风车支架
-t.color("gray")
+t.pencolor("gray")
 t.pensize(20)
-# 转向下
+# 转向上
 t.left(90)
 t.forward(150)
 # endregion
